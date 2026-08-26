@@ -1,0 +1,14 @@
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/manifest.json
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/animais_data.txt
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/sanidade_data.txt
+  Cache-Control: no-cache, no-store, must-revalidate
