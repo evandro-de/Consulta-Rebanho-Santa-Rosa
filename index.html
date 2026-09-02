@@ -276,6 +276,7 @@
   }
   .tab-btn:hover{ color: var(--text); }
   .tab-btn.active{ color: var(--tag-yellow); border-bottom-color: var(--tag-yellow); }
+  .tab-btn[hidden]{ display:none; }
 
   /* ---- Currais tab ---- */
   .curral-summary{
@@ -966,7 +967,7 @@
   <nav class="tabbar" id="tabbar">
     <button class="tab-btn active" id="tabConsultaBtn" type="button">🔎 Consulta</button>
     <button class="tab-btn" id="tabCurraisBtn" type="button">🏠 Currais</button>
-    <button class="tab-btn" id="tabMedBtn" type="button">💉 Medicamentos</button>
+    <button class="tab-btn" id="tabMedBtn" type="button" hidden>💉 Medicamentos</button>
     <button class="tab-btn" id="tabConfigBtn" type="button">⚙️ Configurações</button>
   </nav>
 
@@ -1991,12 +1992,6 @@
         '<div class="weight-item"><span class="lbl">Penúltima (' + val(rec.dt_penultimo_peso) + ')</span><span class="val">' + val(rec.penultimo_peso) + (rec.penultimo_peso ? ' kg' : '') + '</span></div>' +
         '<div class="weight-item"><span class="lbl">Última (' + val(rec.dt_ultimo_peso) + ')</span><span class="val">' + val(rec.ultimo_peso) + (rec.ultimo_peso ? ' kg' : '') + '</span></div>' +
         '</div></div></div>';
-
-      html += '<div class="section"><p class="section-title">Última operação</p><div class="grid">' +
-        field('Operação', rec.ultima_operacao) +
-        field('Data', rec.data_ultima_operacao) +
-        field('Hora', rec.hora_ultima_operacao, true) +
-        '</div></div>';
 
       if (rec.dt_saida || rec.doc_saida || rec.motivo_morte) {
         html += '<div class="section"><p class="section-title">Saída</p><div class="grid">' +

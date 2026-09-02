@@ -1,12 +1,12 @@
 {
   "animais": {
-    "version": "2026-09-01T09:50:44.525Z",
-    "label": "01/09/2026 06:50",
+    "version": "2026-09-02T10:31:01.910Z",
+    "label": "02/09/2026 07:31",
     "url": "animais_data.txt"
   },
   "sanidade": {
-    "version": "2026-09-01T09:50:44.525Z",
-    "label": "01/09/2026 06:50",
+    "version": "2026-09-02T10:31:01.910Z",
+    "label": "02/09/2026 07:31",
     "url": "sanidade_data.txt"
   }
 }
