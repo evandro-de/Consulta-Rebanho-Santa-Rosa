@@ -3282,6 +3282,12 @@
     // Confere se há atualização publicada para todos os usuários — em segundo
     // plano, sem travar a tela; só reflete na UI se encontrar algo mais novo.
     checkRemoteUpdates(false);
+
+    // Registra o Service Worker para permitir uso offline do app depois de já
+    // ter sido aberto pelo menos uma vez com internet.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function () { /* segue sem SW se não suportado */ });
+    }
   }
 
   init();
