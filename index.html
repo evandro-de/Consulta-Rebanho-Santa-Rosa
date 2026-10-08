@@ -2318,14 +2318,13 @@
     META[kind] = { source: 'remote', label: label, date: new Date(entry.version), version: entry.version };
   }
 
+  // URL fixa do manifest.json — igual para todos os aparelhos, sem precisar configurar.
+  var FIXED_MANIFEST_URL = 'https://consulta-rebanho-santa-rosa.onrender.com/manifest.json';
+
   async function checkRemoteUpdates(manual) {
-    var url = null;
-    try { url = await idbGet('remote_manifest_url'); } catch (e) { /* IndexedDB indisponível */ }
-    if (remoteManifestUrlInput && url) remoteManifestUrlInput.value = url;
-    try {
-      var pattern = await idbGet('remote_url_pattern');
-      if (remoteUrlPatternInput && pattern) remoteUrlPatternInput.value = pattern;
-    } catch (e) { /* sem padrão salvo ainda */ }
+    var url = FIXED_MANIFEST_URL;
+    if (remoteManifestUrlInput) { remoteManifestUrlInput.value = url; remoteManifestUrlInput.readOnly = true; }
+    if (remoteUrlPatternInput) { remoteUrlPatternInput.value = ''; remoteUrlPatternInput.readOnly = true; }
 
     if (!url) {
       if (manual) {
@@ -2413,23 +2412,10 @@
   }
 
   saveManifestUrlBtn.addEventListener('click', async function () {
-    var url = remoteManifestUrlInput.value.trim();
-    var pattern = remoteUrlPatternInput.value.trim();
-    if (!url) {
-      remoteSyncStatus.textContent = 'Cole a URL do manifest.json antes de salvar.';
-      remoteSyncStatus.className = 'update-status err';
-      return;
-    }
-    try {
-      await idbSet('remote_manifest_url', url);
-      await idbSet('remote_url_pattern', pattern);
-      remoteSyncStatus.textContent = 'Configuração salva neste aparelho. Verificando agora…';
-      remoteSyncStatus.className = 'update-status ok';
-      checkRemoteUpdates(true);
-    } catch (e) {
-      remoteSyncStatus.textContent = 'Não foi possível salvar neste navegador.';
-      remoteSyncStatus.className = 'update-status err';
-    }
+    // A URL do manifest agora é fixa no app; este botão só dispara uma verificação.
+    remoteSyncStatus.textContent = 'URL fixa já configurada. Verificando agora…';
+    remoteSyncStatus.className = 'update-status ok';
+    checkRemoteUpdates(true);
   });
 
   checkRemoteBtn.addEventListener('click', function () { checkRemoteUpdates(true); });
@@ -2452,8 +2438,7 @@
       return;
     }
     try {
-      var pattern = remoteUrlPatternInput.value.trim();
-      if (!pattern) { try { pattern = (await idbGet('remote_url_pattern')) || ''; } catch (e) { pattern = ''; } }
+      var pattern = '';
       function fileUrl(name) { return pattern ? pattern.split('{file}').join(name) : name; }
 
       var animaisJson = JSON.stringify(DB_ANIMAIS);
